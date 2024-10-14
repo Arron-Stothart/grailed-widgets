@@ -18,21 +18,40 @@ struct Provider: AppIntentTimelineProvider {
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<GrailedListing> {
+        let urls = getURLsForWidget(context)
+        
         do {
-            let url = URL(string: "https://www.grailed.com/listings/68911170-rare-reptilian-wallet?g_aidx=Listing_by_heat_production&g_aqid=9299d9cc58c884ff49b2c6cee2445a24")!
-            let (imageURL, name, designers, currentPrice, originalPrice) = try await WebScraperService.scrapeProductInfo(from: url)
+            var entries: [GrailedListing] = []
+            for url in urls {
+                let (imageURL, name, designers, currentPrice, originalPrice) = try await WebScraperService.scrapeProductInfo(from: url)
+                let entry = GrailedListing(configuration: configuration, 
+                                           imageURL: imageURL, 
+                                           name: name, 
+                                           designers: designers, 
+                                           currentPrice: currentPrice, 
+                                           originalPrice: originalPrice)
+                entries.append(entry)
+            }
             
-            let entry = GrailedListing(configuration: configuration, 
-                                    imageURL: imageURL, 
-                                    name: name, 
-                                    designers: designers, 
-                                    currentPrice: currentPrice, 
-                                    originalPrice: originalPrice)
-            
-            return Timeline(entries: [entry], policy: .atEnd)
+            return Timeline(entries: entries, policy: .atEnd)
         } catch {
             print("Error scraping product info: \(error)")
-            return Timeline(entries: [GrailedListing(configuration: configuration, imageURL: "", name: "", designers: [], currentPrice: "", originalPrice: "")], policy: .atEnd)
+            return Timeline(entries: [GrailedListing(configuration: configuration, imageURL: "", name: "Error", designers: [], currentPrice: "", originalPrice: "")], policy: .atEnd)
+        }
+    }
+    
+    private func getURLsForWidget(_ context: Context) -> [URL] {
+        switch context.family {
+        case .systemLarge:
+            // Sample URLs for large widget TODO: Get dynamically per-user
+            return [
+                URL(string: "https://www.grailed.com/listings/68911170-rare-reptilian-wallet")!,
+                URL(string: "https://www.grailed.com/listings/68677903-hysteric-glamour-x-japanese-brand-x-vintage")!,
+                URL(string: "https://www.grailed.com/listings/another-example-url")!
+            ]
+        default:
+            // Sample URLs for large widget TODO: Get dynamically per-user
+            return [URL(string: "https://www.grailed.com/listings/68911170-rare-reptilian-wallet")!]
         }
     }
 }
@@ -49,13 +68,37 @@ struct GrailedListing: TimelineEntry {
 
 struct widgetsEntryView : View {
     var entry: Provider.Entry
+    @Environment(\.widgetFamily) var family
 
+    var body: some View {
+        switch family {
+        case .systemLarge:
+            LargeWidgetView(entry: entry)
+        default:
+            SmallWidgetView(entry: entry)
+        }
+    }
+}
+
+struct SmallWidgetView: View {
+    var entry: Provider.Entry
+    
     var body: some View {
         VStack {
             Text(entry.name)
             Text(entry.designers.joined(separator: " × "))
             Text(entry.currentPrice)
             Text(entry.originalPrice)
+        }
+    }
+}
+
+struct LargeWidgetView: View {
+    var entry: Provider.Entry
+    
+    var body: some View {
+        VStack {
+            // TODO: Implement
         }
     }
 }
@@ -88,16 +131,5 @@ extension ConfigurationAppIntent {
 #Preview(as: .systemSmall) {
     widgets()
 } timeline: {
-    await scrapedEntry(url: "https://www.grailed.com/listings/68911170-rare-reptilian-wallet?g_aidx=Listing_by_heat_production&g_aqid=9299d9cc58c884ff49b2c6cee2445a24")
-    await scrapedEntry(url: "https://www.grailed.com/listings/68677903-hysteric-glamour-x-japanese-brand-x-vintage-vintage-90-s-hysteric-glamour-trash-naked-girl")
-}
-
-func scrapedEntry(url: String) async -> GrailedListing {
-    do {
-        let (imageURL, name, designers, currentPrice, originalPrice) = try await WebScraperService.scrapeProductInfo(from: URL(string: url)!)
-        return GrailedListing(configuration: .smiley, imageURL: imageURL, name: name, designers: designers, currentPrice: currentPrice, originalPrice: originalPrice)
-    } catch {
-        print("Error scraping product info: \(error)")
-        return GrailedListing(configuration: .smiley, imageURL: "", name: "Error", designers: [], currentPrice: "", originalPrice: "")
-    }
+    GrailedListing(configuration: .smiley, imageURL: "", name: "Small Widget", designers: ["Designer"], currentPrice: "$100", originalPrice: "$150")
 }
