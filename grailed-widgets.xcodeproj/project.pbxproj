@@ -12,6 +12,8 @@
 		6B3E12CD2CBD642B00E739D0 /* grailed_widgetsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3E12C72CBD63E100E739D0 /* grailed_widgetsApp.swift */; };
 		6B3E12CE2CBD642E00E739D0 /* grailed_widgets.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B3E12C62CBD63E100E739D0 /* grailed_widgets.xcdatamodeld */; };
 		6B3E12CF2CBD643100E739D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B3E12C42CBD63E100E739D0 /* Assets.xcassets */; };
+		6B3E12D22CBD91B400E739D0 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3E12D12CBD91B400E739D0 /* SwiftSoup */; };
+		6B3E12D52CBD927D00E739D0 /* WebScraperService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3E12D32CBD91C400E739D0 /* WebScraperService.swift */; };
 		6B8EB5AB2CBD62AE001BA6EA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B8EB5AA2CBD62AE001BA6EA /* WidgetKit.framework */; };
 		6B8EB5AD2CBD62AE001BA6EA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B8EB5AC2CBD62AE001BA6EA /* SwiftUI.framework */; };
 		6B8EB5B02CBD62AE001BA6EA /* widgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8EB5AF2CBD62AE001BA6EA /* widgetsBundle.swift */; };
@@ -53,6 +55,7 @@
 		6B3E12C72CBD63E100E739D0 /* grailed_widgetsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = grailed_widgetsApp.swift; sourceTree = "<group>"; };
 		6B3E12C82CBD63E100E739D0 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		6B3E12CA2CBD63E100E739D0 /* grailed_widgets.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = grailed_widgets.xcdatamodel; sourceTree = "<group>"; };
+		6B3E12D32CBD91C400E739D0 /* WebScraperService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebScraperService.swift; sourceTree = "<group>"; };
 		6B8EB5792CBC53F3001BA6EA /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B8EB5A82CBD62AE001BA6EA /* widgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = widgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B8EB5AA2CBD62AE001BA6EA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -79,6 +82,7 @@
 			files = (
 				6B8EB5AD2CBD62AE001BA6EA /* SwiftUI.framework in Frameworks */,
 				6B8EB5AB2CBD62AE001BA6EA /* WidgetKit.framework in Frameworks */,
+				6B3E12D22CBD91B400E739D0 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +144,7 @@
 				6B8EB5AF2CBD62AE001BA6EA /* widgetsBundle.swift */,
 				6B8EB5B12CBD62AE001BA6EA /* widgetsLiveActivity.swift */,
 				6B8EB5B32CBD62AE001BA6EA /* widgets.swift */,
+				6B3E12D32CBD91C400E739D0 /* WebScraperService.swift */,
 				6B8EB5B52CBD62AE001BA6EA /* AppIntent.swift */,
 				6B8EB5B72CBD62B0001BA6EA /* Assets.xcassets */,
 				6B8EB5B92CBD62B0001BA6EA /* Info.plist */,
@@ -182,6 +187,9 @@
 			dependencies = (
 			);
 			name = widgetsExtension;
+			packageProductDependencies = (
+				6B3E12D12CBD91B400E739D0 /* SwiftSoup */,
+			);
 			productName = widgetsExtension;
 			productReference = 6B8EB5A82CBD62AE001BA6EA /* widgetsExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -213,6 +221,9 @@
 				Base,
 			);
 			mainGroup = 6B8EB5702CBC53F3001BA6EA;
+			packageReferences = (
+				6B3E12D02CBD91B400E739D0 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			productRefGroup = 6B8EB57A2CBC53F3001BA6EA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -258,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B3E12D52CBD927D00E739D0 /* WebScraperService.swift in Sources */,
 				6B8EB5B42CBD62AE001BA6EA /* widgets.swift in Sources */,
 				6B8EB5B62CBD62AE001BA6EA /* AppIntent.swift in Sources */,
 				6B8EB5B22CBD62AE001BA6EA /* widgetsLiveActivity.swift in Sources */,
@@ -540,6 +552,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6B3E12D02CBD91B400E739D0 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6B3E12D12CBD91B400E739D0 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6B3E12D02CBD91B400E739D0 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		6B3E12C62CBD63E100E739D0 /* grailed_widgets.xcdatamodeld */ = {
