@@ -10,11 +10,11 @@ import SwiftUI
 
 struct Provider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> GrailedListing {
-        GrailedListing(configuration: ConfigurationAppIntent(), imageURL: "", name: "", designers: [], currentPrice: "", originalPrice: "")
+        GrailedListing(id: "placeholder", date: Date(), configuration: ConfigurationAppIntent(), imageURL: "", name: "", designers: [], currentPrice: "", originalPrice: "")
     }
 
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> GrailedListing {
-        GrailedListing(configuration: configuration, imageURL: "", name: "", designers: [], currentPrice: "", originalPrice: "")
+        GrailedListing(id: "snapshot", date: Date(), configuration: configuration, imageURL: "", name: "", designers: [], currentPrice: "", originalPrice: "")
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<GrailedListing> {
@@ -24,7 +24,9 @@ struct Provider: AppIntentTimelineProvider {
             var entries: [GrailedListing] = []
             for url in urls {
                 let (imageURL, name, designers, currentPrice, originalPrice) = try await WebScraperService.scrapeProductInfo(from: url)
-                let entry = GrailedListing(configuration: configuration, 
+                let entry = GrailedListing(id: UUID().uuidString,
+                                           date: Date(),
+                                           configuration: configuration, 
                                            imageURL: imageURL, 
                                            name: name, 
                                            designers: designers, 
@@ -36,7 +38,7 @@ struct Provider: AppIntentTimelineProvider {
             return Timeline(entries: entries, policy: .atEnd)
         } catch {
             print("Error scraping product info: \(error)")
-            return Timeline(entries: [GrailedListing(configuration: configuration, imageURL: "", name: "Error", designers: [], currentPrice: "", originalPrice: "")], policy: .atEnd)
+            return Timeline(entries: [GrailedListing(id: "error", date: Date(), configuration: configuration, imageURL: "", name: "Error", designers: [], currentPrice: "", originalPrice: "")], policy: .atEnd)
         }
     }
     
@@ -57,7 +59,8 @@ struct Provider: AppIntentTimelineProvider {
 }
 
 struct GrailedListing: TimelineEntry {
-    let date: Date = Date()
+    let id: String
+    let date: Date
     let configuration: ConfigurationAppIntent
     let imageURL: String
     let name: String
@@ -76,19 +79,6 @@ struct widgetsEntryView : View {
             LargeWidgetView(entry: entry)
         default:
             SmallWidgetView(entry: entry)
-        }
-    }
-}
-
-struct SmallWidgetView: View {
-    var entry: Provider.Entry
-    
-    var body: some View {
-        VStack {
-            Text(entry.name)
-            Text(entry.designers.joined(separator: " × "))
-            Text(entry.currentPrice)
-            Text(entry.originalPrice)
         }
     }
 }
@@ -131,5 +121,5 @@ extension ConfigurationAppIntent {
 #Preview(as: .systemSmall) {
     widgets()
 } timeline: {
-    GrailedListing(configuration: .smiley, imageURL: "", name: "Small Widget", designers: ["Designer"], currentPrice: "$100", originalPrice: "$150")
+    GrailedListing(id: UUID().uuidString, date: Date(), configuration: .smiley, imageURL: "https://media-assets.grailed.com/prd/listing/temp/9d660ca2c3794b8ab6aed64c50b0ded2?w=1600", name: "Small Widget", designers: ["Designer"], currentPrice: "$100", originalPrice: "$150")
 }
