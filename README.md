@@ -11,7 +11,7 @@
 - **Quick Actions**: Control panel for quick access to new messages and essential app features.
 
 ## Implementation Details
-- Built with Swift, SwiftUI and WidgetKit
+- Built with Swift, SwiftUI, WidgetKit, SwiftSoup (extraction for demo purposes)
 - Designed in Figma using Grailed assets, attempting to adhere to their design practices
 - Currently uses sample items to simulate data fetching. These placeholder endpoints would be replaced with official Grailed API endpoints + WidgetKit's timeline provider in a production version.
 
