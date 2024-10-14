@@ -12,5 +12,5 @@
 
 ## Implementation Details
 - Built with Swift, SwiftUI and WidgetKit
-- Designed in Figma using Grailed assets and attempting to adhere to their design practices
+- Designed in Figma using Grailed assets, attempting to adhere to their design practices
 - Currently uses sample items to simulate data fetching. These placeholder endpoints would be replaced with official Grailed API endpoints + WidgetKit's timeline provider in a production version
