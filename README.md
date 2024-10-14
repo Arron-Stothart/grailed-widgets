@@ -13,4 +13,9 @@
 ## Implementation Details
 - Built with Swift, SwiftUI and WidgetKit
 - Designed in Figma using Grailed assets, attempting to adhere to their design practices
-- Currently uses sample items to simulate data fetching. These placeholder endpoints would be replaced with official Grailed API endpoints + WidgetKit's timeline provider in a production version
+- Currently uses sample items to simulate data fetching. These placeholder endpoints would be replaced with official Grailed API endpoints + WidgetKit's timeline provider in a production version.
+
+## Resources Used
+- [iOS 18 Widgets - Adi Chakravarty](https://www.figma.com/community/file/1253436284170910973/ios-18-widgets)
+- [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/widgets)
+- [Dribble Widget Design Inspiration](https://dribbble.com/tags/ios-widget)
