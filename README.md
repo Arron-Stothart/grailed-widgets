@@ -2,6 +2,7 @@
 
 <p align="center">
   <img width="2048" alt="S+L Designs (Figma)" src="https://github.com/user-attachments/assets/39812f24-2fe5-4299-a67b-b8ae018c2754">
+  <a href="https://www.figma.com/file/sNUX11YYAvEAS3Uos9VbIx/Grailed-iOS-Widgets?node-id=2-1445&type=design">View Figma Board with Design Process</a>
 </p>
 
 ## Widget Types
