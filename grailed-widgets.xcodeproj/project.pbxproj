@@ -129,7 +129,6 @@
 		6B8EB5702CBC53F3001BA6EA = {
 			isa = PBXGroup;
 			children = (
-				6B3E12D82CBD9F7F00E739D0 /* fonts */,
 				6B3E12C92CBD63E100E739D0 /* app */,
 				6B8EB5AE2CBD62AE001BA6EA /* widgets */,
 				6B8EB5A92CBD62AE001BA6EA /* Frameworks */,
@@ -166,6 +165,7 @@
 				6B3E12D32CBD91C400E739D0 /* WebScraperService.swift */,
 				6B8EB5B52CBD62AE001BA6EA /* AppIntent.swift */,
 				6B8EB5B72CBD62B0001BA6EA /* Assets.xcassets */,
+				6B3E12D82CBD9F7F00E739D0 /* fonts */,
 				6B8EB5B92CBD62B0001BA6EA /* Info.plist */,
 			);
 			path = widgets;
