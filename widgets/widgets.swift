@@ -8,37 +8,66 @@
 import WidgetKit
 import SwiftUI
 
+struct GrailedListingsEntry: TimelineEntry {
+    let date: Date
+    let configuration: ConfigurationAppIntent
+    let listings: [GrailedListing]
+}
+
+struct GrailedListing: Identifiable {
+    let id: String
+    let imageURL: String
+    let name: String
+    let designers: [String]
+    let currentPrice: String
+    let originalPrice: String
+}
+
 struct Provider: AppIntentTimelineProvider {
-    func placeholder(in context: Context) -> GrailedListing {
-        GrailedListing(id: "placeholder", date: Date(), configuration: ConfigurationAppIntent(), imageURL: "", name: "", designers: [], currentPrice: "", originalPrice: "")
+    func placeholder(in context: Context) -> GrailedListingsEntry {
+        GrailedListingsEntry(
+            date: Date(),
+            configuration: ConfigurationAppIntent(),
+            listings: [GrailedListing(id: "placeholder", imageURL: "", name: "", designers: [], currentPrice: "", originalPrice: "")]
+        )
     }
 
-    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> GrailedListing {
-        GrailedListing(id: "snapshot", date: Date(), configuration: configuration, imageURL: "", name: "", designers: [], currentPrice: "", originalPrice: "")
+    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> GrailedListingsEntry {
+        GrailedListingsEntry(
+            date: Date(),
+            configuration: configuration,
+            listings: [GrailedListing(id: "snapshot", imageURL: "", name: "", designers: [], currentPrice: "", originalPrice: "")]
+        )
     }
     
-    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<GrailedListing> {
+    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<GrailedListingsEntry> {
         let urls = getURLsForWidget(context)
         
         do {
-            var entries: [GrailedListing] = []
+            var listings: [GrailedListing] = []
             for url in urls {
                 let (imageURL, name, designers, currentPrice, originalPrice) = try await WebScraperService.scrapeProductInfo(from: url)
-                let entry = GrailedListing(id: UUID().uuidString,
-                                           date: Date(),
-                                           configuration: configuration, 
-                                           imageURL: imageURL, 
-                                           name: name, 
-                                           designers: designers, 
-                                           currentPrice: currentPrice, 
-                                           originalPrice: originalPrice)
-                entries.append(entry)
+                let listing = GrailedListing(
+                    id: UUID().uuidString,
+                    imageURL: imageURL, 
+                    name: name, 
+                    designers: designers, 
+                    currentPrice: currentPrice, 
+                    originalPrice: originalPrice
+                )
+                listings.append(listing)
             }
             
-            return Timeline(entries: entries, policy: .atEnd)
+            let entry = GrailedListingsEntry(date: Date(), configuration: configuration, listings: listings)
+            return Timeline(entries: [entry], policy: .atEnd)
         } catch {
             print("Error scraping product info: \(error)")
-            return Timeline(entries: [GrailedListing(id: "error", date: Date(), configuration: configuration, imageURL: "", name: "Error", designers: [], currentPrice: "", originalPrice: "")], policy: .atEnd)
+            let errorEntry = GrailedListingsEntry(
+                date: Date(),
+                configuration: configuration,
+                listings: [GrailedListing(id: "error", imageURL: "", name: "Error", designers: [], currentPrice: "", originalPrice: "")]
+            )
+            return Timeline(entries: [errorEntry], policy: .atEnd)
         }
     }
     
@@ -58,19 +87,8 @@ struct Provider: AppIntentTimelineProvider {
     }
 }
 
-struct GrailedListing: TimelineEntry {
-    let id: String
-    let date: Date
-    let configuration: ConfigurationAppIntent
-    let imageURL: String
-    let name: String
-    let designers: [String]
-    let currentPrice: String
-    let originalPrice: String
-}
-
 struct widgetsEntryView : View {
-    var entry: Provider.Entry
+    var entry: GrailedListingsEntry
     @Environment(\.widgetFamily) var family
 
     var body: some View {
@@ -79,16 +97,6 @@ struct widgetsEntryView : View {
             LargeWidgetView(entry: entry)
         default:
             SmallWidgetView(entry: entry)
-        }
-    }
-}
-
-struct LargeWidgetView: View {
-    var entry: Provider.Entry
-    
-    var body: some View {
-        VStack {
-            // TODO: Implement
         }
     }
 }
@@ -118,8 +126,28 @@ extension ConfigurationAppIntent {
     }
 }
 
+#Preview(as: .systemLarge) {
+    widgets()
+} timeline: {
+    GrailedListingsEntry(
+        date: Date(),
+        configuration: .smiley,
+        listings: [
+            GrailedListing(id: UUID().uuidString, imageURL: "https://example.com/image1.jpg", name: "Large Widget Item 1", designers: ["Designer", "Designer"], currentPrice: "$100", originalPrice: "$150"),
+            GrailedListing(id: UUID().uuidString, imageURL: "https://example.com/image2.jpg", name: "Large Widget Item 2", designers: ["Designer", "Designer"], currentPrice: "$200", originalPrice: "$250"),
+            GrailedListing(id: UUID().uuidString, imageURL: "https://example.com/image3.jpg", name: "Large Widget Item 3", designers: ["Designer", "Designer"], currentPrice: "$300", originalPrice: "$350")
+        ]
+    )
+}
+
 #Preview(as: .systemSmall) {
     widgets()
 } timeline: {
-    GrailedListing(id: UUID().uuidString, date: Date(), configuration: .smiley, imageURL: "https://media-assets.grailed.com/prd/listing/temp/9d660ca2c3794b8ab6aed64c50b0ded2?w=1600", name: "Small Widget", designers: ["Designer"], currentPrice: "$100", originalPrice: "$150")
+    GrailedListingsEntry(
+        date: Date(),
+        configuration: .smiley,
+        listings: [
+            GrailedListing(id: UUID().uuidString, imageURL: "https://example.com/image.jpg", name: "Small Widget", designers: ["Designer"], currentPrice: "$100", originalPrice: "$150")
+        ]
+    )
 }

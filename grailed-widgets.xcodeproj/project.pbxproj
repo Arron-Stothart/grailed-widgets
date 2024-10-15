@@ -16,6 +16,7 @@
 		6B3E12D52CBD927D00E739D0 /* WebScraperService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3E12D32CBD91C400E739D0 /* WebScraperService.swift */; };
 		6B3E12D72CBD9CFA00E739D0 /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3E12D62CBD9CFA00E739D0 /* SmallWidgetView.swift */; };
 		6B3E12DC2CBDA10F00E739D0 /* Video.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B3E12DB2CBDA10F00E739D0 /* Video.ttf */; };
+		6B3E12DF2CBE629500E739D0 /* LargeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3E12DE2CBE629500E739D0 /* LargeWidgetView.swift */; };
 		6B8EB5AB2CBD62AE001BA6EA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B8EB5AA2CBD62AE001BA6EA /* WidgetKit.framework */; };
 		6B8EB5AD2CBD62AE001BA6EA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B8EB5AC2CBD62AE001BA6EA /* SwiftUI.framework */; };
 		6B8EB5B02CBD62AE001BA6EA /* widgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8EB5AF2CBD62AE001BA6EA /* widgetsBundle.swift */; };
@@ -61,6 +62,7 @@
 		6B3E12D62CBD9CFA00E739D0 /* SmallWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallWidgetView.swift; sourceTree = "<group>"; };
 		6B3E12DB2CBDA10F00E739D0 /* Video.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Video.ttf; sourceTree = "<group>"; };
 		6B3E12DD2CBDA19B00E739D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6B3E12DE2CBE629500E739D0 /* LargeWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeWidgetView.swift; sourceTree = "<group>"; };
 		6B8EB5792CBC53F3001BA6EA /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B8EB5A82CBD62AE001BA6EA /* widgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = widgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B8EB5AA2CBD62AE001BA6EA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -160,6 +162,7 @@
 				6B8EB5B12CBD62AE001BA6EA /* widgetsLiveActivity.swift */,
 				6B8EB5B32CBD62AE001BA6EA /* widgets.swift */,
 				6B3E12D62CBD9CFA00E739D0 /* SmallWidgetView.swift */,
+				6B3E12DE2CBE629500E739D0 /* LargeWidgetView.swift */,
 				6B3E12D32CBD91C400E739D0 /* WebScraperService.swift */,
 				6B8EB5B52CBD62AE001BA6EA /* AppIntent.swift */,
 				6B8EB5B72CBD62B0001BA6EA /* Assets.xcassets */,
@@ -289,6 +292,7 @@
 				6B3E12D52CBD927D00E739D0 /* WebScraperService.swift in Sources */,
 				6B8EB5B42CBD62AE001BA6EA /* widgets.swift in Sources */,
 				6B8EB5B62CBD62AE001BA6EA /* AppIntent.swift in Sources */,
+				6B3E12DF2CBE629500E739D0 /* LargeWidgetView.swift in Sources */,
 				6B8EB5B22CBD62AE001BA6EA /* widgetsLiveActivity.swift in Sources */,
 				6B3E12D72CBD9CFA00E739D0 /* SmallWidgetView.swift in Sources */,
 				6B8EB5B02CBD62AE001BA6EA /* widgetsBundle.swift in Sources */,
