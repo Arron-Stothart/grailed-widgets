@@ -8,8 +8,8 @@
 ## Widget Types
 
 - **Price Drops**: Quick glance at saved items that have recently had price reductions.
-- **Saved Searches Widget**: Stay updated with new items from saved searches and favourited catagories.
-- **Quick Actions**: Control panel for quick access to new messages and essential app features.
+- ~~**Saved Searches Widget**: Stay updated with new items from saved searches and favourited catagories.~~
+- ~~**Quick Actions**: Control panel for quick access to new messages and essential app features.~~
 
 ## Implementation Details
 - Built with Swift, SwiftUI, WidgetKit, SwiftSoup (extraction for demo purposes)
