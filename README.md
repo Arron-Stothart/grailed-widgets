@@ -1,7 +1,7 @@
 # Grailed iOS Widgets
 
 <p align="center">
-  <img width="736" alt="Design" src="https://github.com/user-attachments/assets/322d156d-b973-4bd3-9bd0-f2d0e1f57da3">
+  <img width="2048" alt="S+L Designs (Figma)" src="https://github.com/user-attachments/assets/39812f24-2fe5-4299-a67b-b8ae018c2754">
 </p>
 
 ## Widget Types
