@@ -28,7 +28,7 @@ struct LargeWidgetView: View {
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
         }
-        .padding(12)
+        .padding(.vertical, 12)
         .widgetURL(URL(string: "grailedapp://listings"))
         .containerBackground(for: .widget) {
             Color(UIColor.systemBackground)
@@ -79,7 +79,7 @@ struct LargeWidgetItemView: View {
             } placeholder: {
                 Color.gray
             }
-            .frame(width: geometry.size.width * 0.25, height: (geometry.size.height - 36) / 3)
+            .frame(width: geometry.size.width * 0.25, height: (geometry.size.height - 40) / 3)
         }
     }
 }

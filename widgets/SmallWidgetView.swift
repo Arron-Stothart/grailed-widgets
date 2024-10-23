@@ -15,7 +15,7 @@ struct SmallWidgetView: View {
     var body: some View {
         if let listing = entry.listings.first {
             GeometryReader { geometry in
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 4) {
                     Text("Price Drop")
                         .font(.system(size: 16, weight: .heavy))
                         .foregroundColor(.black)
