@@ -19,20 +19,24 @@ struct SmallWidgetView: View {
                     Text("Price Drop")
                         .font(.system(size: 16, weight: .heavy))
                         .foregroundColor(.black)
-                    HStack(spacing: 8) {
-                        AsyncImage(url: URL(string: listing.imageURL)) { image in
-                            image.resizable().aspectRatio(contentMode: .fill)
-                        } placeholder: {
+                    HStack(alignment: .top, spacing: 8) {
+                        if let imageData = listing.imageData, let uiImage = UIImage(data: imageData) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: geometry.size.width * 0.51, height: geometry.size.height - 25)
+                                .clipped()
+                        } else {
                             Color.gray
+                                .frame(width: geometry.size.width * 0.51, height: geometry.size.height - 25)
                         }
-                        .frame(width: geometry.size.width * 0.5, height: geometry.size.height - 30)
                         
                         VStack(alignment: .leading, spacing: 2) {
                             Text("6hrs ago")
                                 .font(.caption2)
                             Text(listing.name)
-                                .font(.subheadline.bold())
-                                .lineLimit(2)
+                                .font(.system(size: 12, weight: .bold))
+                                .lineLimit(3)
                             Text(listing.currentPrice)
                                 .font(.custom("Video", size: 12))
                                 .foregroundColor(Color(red: 0.75, green: 0.16, blue: 0.15))
@@ -44,10 +48,11 @@ struct SmallWidgetView: View {
                     }
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height)
+                .padding(.top, -2) 
             }
             .widgetURL(URL(string: "grailedapp://listing/\(listing.id)"))
             .containerBackground(for: .widget) {
-                Color(UIColor.systemBackground)
+                Color(white: 1.0)
             }
         } else {
             Text("No data available")

@@ -17,6 +17,7 @@ struct GrailedListingsEntry: TimelineEntry {
 struct GrailedListing: Identifiable {
     let id: String
     let imageURL: String
+    let imageData: Data? // Add this line
     let name: String
     let designers: [String]
     let currentPrice: String
@@ -28,7 +29,7 @@ struct Provider: AppIntentTimelineProvider {
         GrailedListingsEntry(
             date: Date(),
             configuration: ConfigurationAppIntent(),
-            listings: [GrailedListing(id: "placeholder", imageURL: "", name: "", designers: [], currentPrice: "", originalPrice: "")]
+            listings: [GrailedListing(id: "placeholder", imageURL: "", imageData: nil, name: "", designers: [], currentPrice: "", originalPrice: "")]
         )
     }
 
@@ -36,7 +37,7 @@ struct Provider: AppIntentTimelineProvider {
         GrailedListingsEntry(
             date: Date(),
             configuration: configuration,
-            listings: [GrailedListing(id: "snapshot", imageURL: "", name: "", designers: [], currentPrice: "", originalPrice: "")]
+            listings: [GrailedListing(id: "snapshot", imageURL: "", imageData: nil, name: "", designers: [], currentPrice: "", originalPrice: "")]
         )
     }
     
@@ -50,6 +51,7 @@ struct Provider: AppIntentTimelineProvider {
                 let listing = GrailedListing(
                     id: UUID().uuidString,
                     imageURL: imageURL, 
+                    imageData: try? Data(contentsOf: URL(string: imageURL)!),
                     name: name, 
                     designers: designers, 
                     currentPrice: currentPrice, 
@@ -65,7 +67,7 @@ struct Provider: AppIntentTimelineProvider {
             let errorEntry = GrailedListingsEntry(
                 date: Date(),
                 configuration: configuration,
-                listings: [GrailedListing(id: "error", imageURL: "", name: "Error", designers: [], currentPrice: "", originalPrice: "")]
+                listings: [GrailedListing(id: "error", imageURL: "", imageData: nil, name: "Error", designers: [], currentPrice: "", originalPrice: "")]
             )
             return Timeline(entries: [errorEntry], policy: .atEnd)
         }
@@ -74,14 +76,12 @@ struct Provider: AppIntentTimelineProvider {
     private func getURLsForWidget(_ context: Context) -> [URL] {
         switch context.family {
         case .systemLarge:
-            // Sample URLs for large widget TODO: Get dynamically per-user
             return [
+                URL(string: "https://www.grailed.com/listings/68038440-yohji-yamamoto-x-spotted-horse-craft-painted-z-denim-trucker-jacket")!,
                 URL(string: "https://www.grailed.com/listings/68911170-rare-reptilian-wallet")!,
-                URL(string: "https://www.grailed.com/listings/68677903-hysteric-glamour-x-japanese-brand-x-vintage")!,
-                URL(string: "https://www.grailed.com/listings/another-example-url")!
+                URL(string: "https://www.grailed.com/listings/51600699-gildan-x-streetwear-x-vintage-2018-strath-haven-field-hockey-gildan-premium-cotton-hoodie")!
             ]
         default:
-            // Sample URLs for large widget TODO: Get dynamically per-user
             return [URL(string: "https://www.grailed.com/listings/68911170-rare-reptilian-wallet")!]
         }
     }
@@ -107,7 +107,9 @@ struct widgets: Widget {
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
             widgetsEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
+                .containerBackground(for: .widget) {
+                    Color.white
+                }
         }
     }
 }
@@ -133,9 +135,33 @@ extension ConfigurationAppIntent {
         date: Date(),
         configuration: .smiley,
         listings: [
-            GrailedListing(id: UUID().uuidString, imageURL: "https://example.com/image1.jpg", name: "Large Widget Item 1", designers: ["Designer", "Designer"], currentPrice: "$100", originalPrice: "$150"),
-            GrailedListing(id: UUID().uuidString, imageURL: "https://example.com/image2.jpg", name: "Large Widget Item 2", designers: ["Designer", "Designer"], currentPrice: "$200", originalPrice: "$250"),
-            GrailedListing(id: UUID().uuidString, imageURL: "https://example.com/image3.jpg", name: "Large Widget Item 3", designers: ["Designer", "Designer"], currentPrice: "$300", originalPrice: "$350")
+            GrailedListing(
+                id: UUID().uuidString,
+                imageURL: "https://media-assets.grailed.com/prd/listing/temp/9d660ca2c3794b8ab6aed64c50b0ded2?w=1600",
+                imageData: try? Data(contentsOf: URL(string: "https://media-assets.grailed.com/prd/listing/temp/9d660ca2c3794b8ab6aed64c50b0ded2?w=1600")!),
+                name: "VINTAGE 90s HYSTERIC GLAMOUR TRASH NAKED GIRL",
+                designers: ["Hysteric Glamour", "Japanese Brand", "Streetwear"],
+                currentPrice: "$287",
+                originalPrice: "$350"
+            ),
+            GrailedListing(
+                id: UUID().uuidString,
+                imageURL: "https://media-assets.grailed.com/prd/listing/temp/588f3557c935412fb6478750e360801a?w=1600",
+                imageData: try? Data(contentsOf: URL(string: "https://media-assets.grailed.com/prd/listing/temp/588f3557c935412fb6478750e360801a?w=1600")!),
+                name: "2018 STRATH HAVEN FIELD HOCKEY GILDAN PREMIUM Cotton Hoodie",
+                designers: ["Gildan", "Streetwear", "Vintage"],
+                currentPrice: "$49",
+                originalPrice: "$59"
+            ),
+            GrailedListing(
+                id: UUID().uuidString,
+                imageURL: "https://media-assets.grailed.com/prd/listing/temp/b38219768bc24a328c932f892411b5b2?w=1600",
+                imageData: try? Data(contentsOf: URL(string: "https://media-assets.grailed.com/prd/listing/temp/b38219768bc24a328c932f892411b5b2?w=1600")!),
+                name: "Painted Z Denim Trucker Jacket",
+                designers: ["Yohji Yamamoto", "Spotted Horse Craft"],
+                currentPrice: "$1,800",
+                originalPrice: "$2,000"
+            ),
         ]
     )
 }
@@ -147,7 +173,15 @@ extension ConfigurationAppIntent {
         date: Date(),
         configuration: .smiley,
         listings: [
-            GrailedListing(id: UUID().uuidString, imageURL: "https://example.com/image.jpg", name: "Small Widget", designers: ["Designer"], currentPrice: "$100", originalPrice: "$150")
+            GrailedListing(
+                id: UUID().uuidString,
+                imageURL: "https://media-assets.grailed.com/prd/listing/temp/9d660ca2c3794b8ab6aed64c50b0ded2?w=1600",
+                imageData: try? Data(contentsOf: URL(string: "https://media-assets.grailed.com/prd/listing/temp/9d660ca2c3794b8ab6aed64c50b0ded2?w=1600")!),
+                name: "VINTAGE 90s HYSTERIC GLAMOUR TRASH NAKED GIRL",
+                designers: ["Hysteric Glamour", "Japanese Brand", "Streetwear"],
+                currentPrice: "$287",
+                originalPrice: "$350"
+            )
         ]
     )
 }

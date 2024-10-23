@@ -31,7 +31,7 @@ struct LargeWidgetView: View {
         .padding(.vertical, 12)
         .widgetURL(URL(string: "grailedapp://listings"))
         .containerBackground(for: .widget) {
-            Color(UIColor.systemBackground)
+            Color(white: 1.0)
         }
     }
 }
@@ -74,12 +74,16 @@ struct LargeWidgetItemView: View {
                 }
             }
             Spacer()
-            AsyncImage(url: URL(string: listing.imageURL)) { image in
-                image.resizable().aspectRatio(contentMode: .fill)
-            } placeholder: {
+            if let imageData = listing.imageData, let uiImage = UIImage(data: imageData) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: geometry.size.width * 0.25, height: (geometry.size.height - 40) / 3)
+                    .clipped()
+            } else {
                 Color.gray
+                    .frame(width: geometry.size.width * 0.25, height: (geometry.size.height - 40) / 3)
             }
-            .frame(width: geometry.size.width * 0.25, height: (geometry.size.height - 40) / 3)
         }
     }
 }
