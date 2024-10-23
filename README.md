@@ -20,3 +20,10 @@
 - [iOS 18 Widgets - Adi Chakravarty](https://www.figma.com/community/file/1253436284170910973/ios-18-widgets)
 - [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/widgets)
 - [Dribble Widget Design Inspiration](https://dribbble.com/tags/ios-widget)
+
+## Preview Screenshots
+
+<div style="display: flex; gap: 10px;">
+  <img width="500" alt="Screenshot 2024-10-23 at 10 40 13" src="https://github.com/user-attachments/assets/2c7771d9-f1b7-4a0c-a2e2-362e834021f8">
+  <img width="500" alt="Screenshot 2024-10-23 at 10 40 22" src="https://github.com/user-attachments/assets/3f09e72c-db57-478c-87ab-29f838a82459">
+</div>
