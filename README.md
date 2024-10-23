@@ -23,7 +23,7 @@
 
 ## Preview Screenshots
 
-<div style="display: flex; gap: 10px;">
-  <img width="500" alt="Screenshot 2024-10-23 at 10 40 13" src="https://github.com/user-attachments/assets/2c7771d9-f1b7-4a0c-a2e2-362e834021f8">
-  <img width="500" alt="Screenshot 2024-10-23 at 10 40 22" src="https://github.com/user-attachments/assets/3f09e72c-db57-478c-87ab-29f838a82459">
-</div>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/2c7771d9-f1b7-4a0c-a2e2-362e834021f8" width="49%" />
+  <img src="https://github.com/user-attachments/assets/3f09e72c-db57-478c-87ab-29f838a82459" width="49%" />
+</p>
